@@ -19,6 +19,7 @@
         <module>product-service</module>
         <module>shipping-service</module>
         <module>payment-service</module>
+        <module>api-gateway</module>
     </modules>
     <scm>
         <connection>scm:git:git@github.com:rahulsah123/reactive-ecommerce.git</connection>
