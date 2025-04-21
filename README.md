@@ -9,3 +9,4 @@ This project includes:
 - Eureka Discovery Service
 
 All services are built with Spring Boot WebFlux and communicate asynchronously via Kafka.
+![img.png](img.png)
