@@ -1,7 +1,7 @@
 package com.example.reactive_ecommerce.controller;
 
-import com.example.model.Payment;
-import com.example.service.PaymentService;
+import com.example.reactive_ecommerce.model.Payment;
+import com.example.reactive_ecommerce.service.PaymentService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
