@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/shipments")
+@RequestMapping("/v1")
 public class ShipmentController {
     private final ShipmentService service;
 
@@ -17,7 +17,7 @@ public class ShipmentController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/create-shipment")
     public Mono<Shipment> createShipment(@RequestBody Shipment shipment) {
         return service.shipOrder(shipment);
     }
