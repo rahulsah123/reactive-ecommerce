@@ -1,11 +1,9 @@
 package com.example.reactive_ecommerce.model;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class CartItem {
+public class ProductItem {
     private String id;
     private String name;
     private int quantity;
