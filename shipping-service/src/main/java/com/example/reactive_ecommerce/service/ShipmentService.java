@@ -15,6 +15,7 @@ public class ShipmentService {
 
     public Mono<Shipment> shipOrder(Shipment shipment) {
         shipment.setStatus("SHIPPED");
+        shipment.setAddress("New Delhi, India");
         return repository.save(shipment);
     }
 }

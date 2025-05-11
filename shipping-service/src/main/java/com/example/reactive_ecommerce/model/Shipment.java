@@ -17,5 +17,6 @@ public class Shipment {
     private String userId;
     private String address;
     private String status;
+    private double totalPrice;
     private List<ProductItem> items;
 }

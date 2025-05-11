@@ -51,36 +51,35 @@ public class CartService {
                 return repository.save(cart);
             });
     }
-    public Mono<Shipment> createShipment(String userId) {
-        return repository.findByUserId(userId)
-            .flatMap(cart -> {
-                Shipment shipment = new Shipment();
-                shipment.setId(UUID.randomUUID().toString());
-                shipment.setOrderId(UUID.randomUUID().toString());
-                shipment.setUserId(userId);
-                shipment.setItems(
-                        cart.getItems().stream()
-                        .map(cartItem -> {
-                            ProductItem productItem = new ProductItem();
-                            productItem.setId(cartItem.getId());
-                            productItem.setName(cartItem.getName());
-                            productItem.setQuantity(cartItem.getQuantity());
-                            return productItem;
-                        })
-                        .toList());
-                shipment.setAddress("New Delhi, India");
-                return cartClient.createShipment(shipment);
-            });
-    }
 
-    public Mono<Payment> pay(String userId, String orderId, double amount) {
+
+    public Mono<Shipment> pay(Cart cart) {
         Payment payment = new Payment();
         payment.setId(UUID.randomUUID().toString());
-        payment.setUserId(userId);
-        payment.setOrderId(orderId);
-        payment.setAmount(amount);
+        payment.setUserId(cart.getUserId());
+        payment.setOrderId(UUID.randomUUID().toString());
+        payment.setTotalPrice(calculateTotalPrice(cart.getItems()));
+        payment.setItems(mapCartItemsToProductItems(cart.getItems()));
         payment.setStatus("PENDING");
 
         return cartClient.pay(payment);
+    }
+    private double calculateTotalPrice(List<CartItem> items) {
+        return items.stream()
+                .mapToDouble(item -> item.getQuantity() * item.getPrice())
+                .sum();
+    }
+
+    private List<ProductItem> mapCartItemsToProductItems(List<CartItem> cartItems) {
+        return cartItems.stream()
+                .map(cartItem -> {
+                    ProductItem productItem = new ProductItem();
+                    productItem.setId(cartItem.getId());
+                    productItem.setName(cartItem.getName());
+                    productItem.setQuantity(cartItem.getQuantity());
+                    productItem.setPrice(cartItem.getPrice());
+                    return productItem;
+                })
+                .toList();
     }
 }

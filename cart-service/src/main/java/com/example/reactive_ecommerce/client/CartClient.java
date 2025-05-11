@@ -26,21 +26,12 @@ public class CartClient {
                 .bodyToFlux(Product.class);
     }
 
-    public Mono<Shipment> createShipment(Shipment shipment) {
-        return webClientBuilder.baseUrl(Constant.SHIPPING_BASE_URL).build()
-                .post()
-                .uri("/v1/create-shipment")
-                .bodyValue(shipment)
-                .retrieve()
-                .bodyToMono(Shipment.class);
-    }
-
-    public Mono<Payment> pay(Payment payment) {
+    public Mono<Shipment> pay(Payment payment) {
         return webClientBuilder.baseUrl(Constant.PAYMENT_BASE_URL).build()
                 .post()
                 .uri("/payments")
                 .bodyValue(payment)
                 .retrieve()
-                .bodyToMono(Payment.class);
+                .bodyToMono(Shipment.class);
     }
 }

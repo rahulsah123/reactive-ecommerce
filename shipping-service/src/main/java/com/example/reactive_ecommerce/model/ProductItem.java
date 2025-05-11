@@ -7,4 +7,5 @@ public class ProductItem {
     private String id;
     private String name;
     private int quantity;
+    private double price;
 }
